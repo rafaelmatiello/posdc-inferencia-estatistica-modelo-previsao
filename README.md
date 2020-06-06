@@ -63,8 +63,72 @@ Professor: Moacir Manoel Rodrigues Junior
 	- Hipótese nula
 		- ex.: pingou o regeagente de cocaida, e não ficou azul, afasta a hipotese de cocaina.
 		- uma afirmação possível de ser afastada.
+		- parâmetro hipostético
+			- imc para fazer a cirurgia
+	- parâmetro real
+			- media de pesos de todos os professores.
+	- hipótese alternativa.
+			- será utilizada se a nula for rejeitada.
+			- teste bi-caudal, indiferente se esta acima ou a abaixa
+	- Hipótese
+			- Se é maior ou menor que a hipotese
+			- ex.: peso medio é diferente de 90 kilos.
+- Erros
+	- opções: 
+			- rejeitar
+				- rejeitou mas era verdadeira, tipo 1
+			- Não rejeitar
+				- Não rejeito e era falsa
+				- Não pode estimar com precisão
+				- Erro diminiu conforme aumenta a amostra.
+				- diminiu conforme alfa diminui
+- Tesde de hipóteses
+	- Passos para um teste de hipótese computacionamente
+		- 1 Definir a hipótese Nula a ser testada e a Alternativa (Teste bi-caudal ou unicaldal).
+		- 2 Nivél de significancia alfa	
+			- Erro tipo 1 permitido. ex.: 5%
+		- 3 - Escolher a estatística de teste
+			- escolher o teste
+		- 4 - Retirar uma amostra e calcular o valor
+		- 5 - determinar o p-value (valor de probabilidade), corresponde a propabilidade em relação a amostra
+		- 6 se o p-value-> se menor que o alfa passo 2, regeitar H0 e assumir h1, como verdadeira, caso contrário rejeira
+			ex.: a media de peso na furb, é de 90 kg, 
+				h0 -> média de 90 kb com 5% de tolerancia.
+				
+
+## Inferência Estatística
+
+	- Paramétricos e Não paramétricos -> distribuição dos dados é normal ou não?
+		- se for normal usa testes parâmetricos
+		- se não for normal usar Não parâmetricos
+	- Teste de normalizadade de kolmogorov-smornov - KS
+		- Associada a normal
+		- compara se a observação é similar a teórica.
+		- hipotese nula, provem de um população normal.
+			o que pode afastar
+		- hi, alternativa, não vem de uma normal
+		- Segue um estatística própria.
+		- problema:
+			- Número de observações menor que 30
+			- Múmero de observações muito grande mais de 100, 150
+			- até uns 70 a 80 casos
+	- TEste de shapiro-wilk
+		- Melhor para amostras de até 30 casos
+		- h0 -> provem da normal
+		- h1 -> provem da não normal
+		- estatatística própria
+	- Tes de normalidade de Jarque-bera
+		- compara a assimetria e Curtose
+		- assimetrica, media dos lados iguais
+		- curtose, media muito densa ou pouco densa
+	- Teste do Levene de homogeneidade de variâncias.
+		- comparação a esta variáncia, formato da curva mais fechada ou aberta
+		- h0 -> todas as veriáncias homogeneas
+		- h1 -> ao meno 1 não homogeneas
+		- 
 		
-
-
-
+	- The p-value is a number between 0 and 1 and interpreted in the following way:
+		- A small p-value (typically ≤ 0.05) indicates strong evidence against the null hypothesis, so you reject the null hypothesis.
+		- A large p-value (> 0.05) indicates weak evidence against the null hypothesis, so you fail to reject the null hypothesis.
+		- p-values very close to the cutoff (0.05) are considered to be marginal (could go either way). Always report the p-value so your readers can draw their own conclusions.
 
