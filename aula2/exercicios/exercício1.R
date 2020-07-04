@@ -478,3 +478,64 @@ t.test(dados4$tx_Hemo[dados4$Grupo != 3] ~dados4$Grupo[dados4$Grupo != 3]) # 1 e
 t.test(dados4$tx_Hemo[dados4$Grupo != 2] ~dados4$Grupo[dados4$Grupo != 2]) # 1 e 3
 t.test(dados4$tx_Hemo[dados4$Grupo != 1] ~dados4$Grupo[dados4$Grupo != 1]) # 2 e 3
 
+
+
+##---------------------
+# Paramétricos
+
+
+# Test wilcoxon - alteranativa ao teste t de 2 amostras pareadas.
+# h0 -> peso anters é igual o peso depois
+# h1 -> peso anters diferente ao peso depois
+wilcox.test(dados2$Antes, dados2$Depois, paired = T)
+
+# 
+# Wilcoxon signed rank test with continuity correction
+# 
+# data:  dados2$Antes and dados2$Depois
+# V = 37, p-value = 0.09485
+# alternative hypothesis: true location shift is not equal to 0
+
+# Conclusão: o p-value = 0.09485 > 0.05 = alfa, não rejeitamos h0
+
+
+
+# Test Mann-whitney - alteranativa ao teste t de 2 amostras independetes
+# H0 - Peso da comida dos homens é igual o peso da comida das mulheres
+# h1 - peso da comida dos homens é diferente do peso da comida das mulheres.
+wilcox.test(dados3$peso_comida ~dados3$sexo)
+# Wilcoxon rank sum test with continuity correction
+# 
+# data:  dados3$peso_comida by dados3$sexo
+# W = 91, p-value = 0.0122
+# alternative hypothesis: true location shift is not equal to 0
+
+# conclusão: como p-value = 0.0122 < 0.05 = alfa, então rejeitamos a H0, aceitamos H1.
+
+
+
+# Test kruskal-wallis - alteranativa ao teste ANOVA
+# H0 - Os grupos possuem o mesmo nível médio de hemoglobina
+# h1 - Existem, pelo menos 2 grupos diferentes de hemoglobina
+
+kruskal.test(dados4$tx_Hemo~dados4$Grupo)
+# 
+# Kruskal-Wallis rank sum test
+# 
+# data:  dados4$tx_Hemo by dados4$Grupo
+# Kruskal-Wallis chi-squared = 15.078, df = 2, p-value = 0.0005319
+
+# conclusão: p-value  = 0.0005319 < 0.05 = alfa, logo rejeitamos h0 e aceitamos h1
+
+
+#-------------------------------------------------------
+#  Test Qui-quadrado 
+# H0 - Não é discrepancia entre o esperado e o realizado
+# H1 - Há é discrepancia entre o esperado e o realizado
+
+dados5 <-  read.csv("Dados Exemplos Chi-Square.csv", header=T, sep=";", dec = ",")
+
+chisq.test(dados5$Tratamento, dados5$Dor_Abdomen)
+
+
+

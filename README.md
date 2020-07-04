@@ -131,4 +131,30 @@ Professor: Moacir Manoel Rodrigues Junior
 		- A small p-value (typically ≤ 0.05) indicates strong evidence against the null hypothesis, so you reject the null hypothesis.
 		- A large p-value (> 0.05) indicates weak evidence against the null hypothesis, so you fail to reject the null hypothesis.
 		- p-values very close to the cutoff (0.05) are considered to be marginal (could go either way). Always report the p-value so your readers can draw their own conclusions.
+		
+## aula 2
+20-06-2020
+
+Teste de hipóteses 
+ - Amostras pareadas
+	- amostra antes do evento
+	- amostra depois do evento.
+	
+## Analytisis of Variance (anova)
+	- teste a diferente enter as médias populacionais de k grupos
+		- ex.: k >= 3
+	- Hipóteses:
+		- h0: média dos groups são iguais
+		- h1: pelo menos uma população com média diferente.
+		- Não tem unicaudal
+	- asimir alfa
+	- exige-se normalidade para as duas populações, 
+	- homogeniedade das variâncias
+	
+# não paramétricos
+	- Não há suposição de ciência quando a distribuição de probabilidade da população.
+	
+## teste Qui-quadrado
+	- Qualitativa X qualitativa, de duas ou mais categorias.
+	- 
 
