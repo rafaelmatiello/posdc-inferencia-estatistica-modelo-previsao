@@ -46,83 +46,86 @@ summary(dados$Preco_Kg[dados$Comida ==3]) # grupo 3
 # acima da média
 
 
-sd(dados$Preco_Kg)
-sd(dados$Preco_Kg[dados$Comida ==1]) # grupo 1
-sd(dados$Preco_Kg[dados$Comida ==2]) # grupo 2
-sd(dados$Preco_Kg[dados$Comida ==3]) # grupo 3
 
-# > sd(dados$Preco_Kg)
-# [1] 5.894459
-# > sd(dados$Preco_Kg[dados$Comida ==1]) # grupo 1
-# [1] 2.300396
-# > sd(dados$Preco_Kg[dados$Comida ==2]) # grupo 2
-# [1] 3.218888
-# > sd(dados$Preco_Kg[dados$Comida ==3]) # grupo 3
-# [1] 2.687904
+basicStats(dados$Preco_Kg)
+basicStats(dados$Preco_Kg[dados$Comida ==1]) # grupo 1
+basicStats(dados$Preco_Kg[dados$Comida ==2]) # grupo 2
+basicStats(dados$Preco_Kg[dados$Comida ==3]) # grupo 3
 
 
-# coêfiente de variáção
-sd(dados$Preco_Kg) /mean(dados$Preco_Kg)
-sd(dados$Preco_Kg[dados$Comida ==1]) / mean(dados$Preco_Kg[dados$Comida ==1]) # grupo 1
-sd(dados$Preco_Kg[dados$Comida ==2]) / mean(dados$Preco_Kg[dados$Comida ==2]) # grupo 2
-sd(dados$Preco_Kg[dados$Comida ==3]) / mean(dados$Preco_Kg[dados$Comida ==3]) # grupo 3
+# > basicStats(dados$Preco_Kg)
+# X..dados.Preco_Kg
+# nobs               150.000000
+# NAs                  0.000000
+# Minimum             11.440000
+# Maximum             36.790000
+# 1. Quartile         18.002500
+# 3. Quartile         27.762500
+# Mean                23.235000
+# Median              23.765000
+# Sum               3485.250000
+# SE Mean              0.481281
+# LCL Mean            22.283983
+# UCL Mean            24.186017
+# Variance            34.744644
+# Stdev                5.894459
+# Skewness             0.075647
+# Kurtosis            -1.002519
+# > basicStats(dados$Preco_Kg[dados$Comida ==1]) # grupo 1
+# X..dados.Preco_Kg.dados.Comida....1
+# nobs                                  52.000000
+# NAs                                    0.000000
+# Minimum                               11.440000
+# Maximum                               21.360000
+# 1. Quartile                           15.225000
+# 3. Quartile                           18.372500
+# Mean                                  16.900962
+# Median                                16.680000
+# Sum                                  878.850000
+# SE Mean                                0.319007
+# LCL Mean                              16.260527
+# UCL Mean                              17.541396
+# Variance                               5.291821
+# Stdev                                  2.300396
+# Skewness                               0.083028
+# Kurtosis                              -0.480234
+# > basicStats(dados$Preco_Kg[dados$Comida ==2]) # grupo 2
+# X..dados.Preco_Kg.dados.Comida....2
+# nobs                                  61.000000
+# NAs                                    0.000000
+# Minimum                               14.780000
+# Maximum                               32.060000
+# 1. Quartile                           22.680000
+# 3. Quartile                           26.250000
+# Mean                                  24.326557
+# Median                                23.990000
+# Sum                                 1483.920000
+# SE Mean                                0.412136
+# LCL Mean                              23.502162
+# UCL Mean                              25.150953
+# Variance                              10.361243
+# Stdev                                  3.218888
+# Skewness                              -0.256800
+# Kurtosis                               0.550086
+# > basicStats(dados$Preco_Kg[dados$Comida ==3]) # grupo 3
+# X..dados.Preco_Kg.dados.Comida....3
+# nobs                                  37.000000
+# NAs                                    0.000000
+# Minimum                               24.880000
+# Maximum                               36.790000
+# 1. Quartile                           28.730000
+# 3. Quartile                           31.800000
+# Mean                                  30.337297
+# Median                                30.480000
+# Sum                                 1122.480000
+# SE Mean                                0.441889
+# LCL Mean                              29.441106
+# UCL Mean                              31.233489
+# Variance                               7.224826
+# Stdev                                  2.687904
+# Skewness                               0.311713
+# Kurtosis                               0.092137
 
-# > sd(dados$Preco_Kg) /mean(dados$Preco_Kg)
-# [1] 0.2536888
-# > sd(dados$Preco_Kg[dados$Comida ==1]) / mean(dados$Preco_Kg[dados$Comida ==1]) # grupo 1
-# [1] 0.1361103
-# > sd(dados$Preco_Kg[dados$Comida ==2]) / mean(dados$Preco_Kg[dados$Comida ==2]) # grupo 2
-# [1] 0.1323199
-# > sd(dados$Preco_Kg[dados$Comida ==3]) / mean(dados$Preco_Kg[dados$Comida ==3]) # grupo 3
-# [1] 0.08860063
-
-
-# assimetria
-skewness(dados$Preco_Kg)
-skewness(dados$Preco_Kg[dados$Comida ==1]) # grupo 1
-skewness(dados$Preco_Kg[dados$Comida ==2]) # grupo 2
-skewness(dados$Preco_Kg[dados$Comida ==3]) # grupo 3
-
-
-# > skewness(dados$Preco_Kg)
-# [1] 0.07564657
-# attr(,"method")
-# [1] "moment"
-# > skewness(dados$Preco_Kg[dados$Comida ==1]) # grupo 1
-# [1] 0.08302814
-# attr(,"method")
-# [1] "moment"
-# > skewness(dados$Preco_Kg[dados$Comida ==2]) # grupo 2
-# [1] -0.2567996
-# attr(,"method")
-# [1] "moment"
-# > skewness(dados$Preco_Kg[dados$Comida ==3]) # grupo 3
-# [1] 0.3117131
-# attr(,"method")
-# [1] "moment"
-
-
-kurtosis(dados$Preco_Kg)
-kurtosis(dados$Preco_Kg[dados$Comida ==1]) # grupo 1
-kurtosis(dados$Preco_Kg[dados$Comida ==2]) # grupo 2
-kurtosis(dados$Preco_Kg[dados$Comida ==3]) # grupo 3
-
-# > kurtosis(dados$Preco_Kg)
-# [1] -1.002519
-# attr(,"method")
-# [1] "excess"
-# > kurtosis(dados$Preco_Kg[dados$Comida ==1]) # grupo 1
-# [1] -0.4802342
-# attr(,"method")
-# [1] "excess"
-# > kurtosis(dados$Preco_Kg[dados$Comida ==2]) # grupo 2
-# [1] 0.5500855
-# attr(,"method")
-# [1] "excess"
-# > kurtosis(dados$Preco_Kg[dados$Comida ==3]) # grupo 3
-# [1] 0.09213739
-# attr(,"method")
-# [1] "excess"
 
 
 # teste de normalidade
@@ -130,9 +133,9 @@ kurtosis(dados$Preco_Kg[dados$Comida ==3]) # grupo 3
 #H1 -> a distribuição NÃO é normal
 
 shapiro.test(dados$Preco_Kg)
-shapiro.test(dados$Preco_Kg[dados$Comida ==1]) # grupo 1
-shapiro.test(dados$Preco_Kg[dados$Comida ==2]) # grupo 2
-shapiro.test(dados$Preco_Kg[dados$Comida ==3]) # grupo 3
+shapiro.test(dados$Preco_Kg[dados$Comida ==1]) # italiana
+shapiro.test(dados$Preco_Kg[dados$Comida ==2]) # japonesa
+shapiro.test(dados$Preco_Kg[dados$Comida ==3]) # churrascaria
 
 # > shapiro.test(dados$Preco_Kg)
 # 
@@ -196,8 +199,8 @@ abline(v=mean(dados$Preco_Kg[dados$Comida == 3]), col="blue")
 
 # teste ANOVA
 # h0 -> os grupos possem médias iguais
-#h1 -> extem 2 grupos com média distintas
-ANOVA <- aov(dados$Preco_Kg ~dados$Comida)
+# h1 -> extem 2 grupos com média distintas
+ANOVA <- aov(dados$Preco_Kg ~ dados$Comida)
 summary(ANOVA)
 # > summary(ANOVA)
 # Df Sum Sq Mean Sq F value Pr(>F)    
@@ -208,6 +211,11 @@ summary(ANOVA)
 
 #consideração: 0 ‘***’ 0.001 é menor que 0.05, então rejeita H0
 
+# Conclusão como o  Pr(>F) 2e-16 < 0.05, rejeitamos H0 e aceitamos H1. 
+# Logo a pelo menos um grupo, que se diferencia no preço dos demais tipos.
+
+
+boxplot(dados$Preco_Kg~dados$Comida)
 
 
 #Testes 2 a 2

@@ -12,6 +12,11 @@
 setwd('C:\\repositorios\\posdc-inferencia-estatistica-modelo-previsao\\exercícios')
 
 
+library(fBasics)
+library(car)
+library(normtest)
+
+
 # carregar o database
 dados1 <- read.csv("Avaliacao Formacao.csv", header=T, sep=";", dec = ".")
 
@@ -21,6 +26,8 @@ dif <- dados1$Conhecimento_Depois - dados1$Conhecimento_Antes
 summary(dados1$Conhecimento_Antes)
 sd(dados1$Conhecimento_Antes)
 sd(dados1$Conhecimento_Antes) /mean(dados1$Conhecimento_Antes) 
+
+basicStats(dados1$Conhecimento_Antes)
 
 # > summary(dados1$Conhecimento_Antes)
 # Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
@@ -34,6 +41,7 @@ sd(dados1$Conhecimento_Antes) /mean(dados1$Conhecimento_Antes)
 summary(dados1$Conhecimento_Depois)
 sd(dados1$Conhecimento_Depois)
 sd(dados1$Conhecimento_Depois) /mean(dados1$Conhecimento_Depois)#coêfiente de variação
+basicStats(dados1$Conhecimento_Depois)
 
 # > summary(dados1$Conhecimento_Depois)
 # Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
@@ -45,7 +53,7 @@ sd(dados1$Conhecimento_Depois) /mean(dados1$Conhecimento_Depois)#coêfiente de v
 
 
 # Considerando a média pode considerar que o conhecimento aumento na média.
-
+# -1 < 0 > 1
 skewness(dados1$Conhecimento_Antes)
 skewness(dados1$Conhecimento_Depois)
 
@@ -60,6 +68,7 @@ skewness(dados1$Conhecimento_Depois)
 
 # R: Não tem problema de assimetria
 
+# -7 < 0 > 7
 kurtosis(dados1$Conhecimento_Antes)
 kurtosis(dados1$Conhecimento_Depois)
 
@@ -102,32 +111,40 @@ shapiro.test(dif)
 # h1 - distribuição não normal
 # conclusão: como o P-value= 3.667e-11 < 0.05, rejeitamos a normalidade.
 
+## REJEITA AS NOMARLIDADE, TRABALHAMOS COM A DIFERENÇA
+
+# TODOS OS TESTE REJEITARAM A NORMALIDADE, ENTÃO PRECISAMOS FAZER UM TESTE PARÂMETRICO.
+# PODEM O CONJUNTO DE DADOS POSSUI 283 OBSERVAÇÕES, PODENDO SER USADO A FLEXIBILIZAÇÃO
+# DO PRESUPOSTO DO TEROMA CENTRAL DOS LIMITES
+
+# Para um amostra grande, a média estimada, para qualquer probalidade, tem a convergir para normalidade.
+
 hist(dif)
 
 
-# teste de amostras pareadas
+# teste de amostras pareadas, não normal!
 # elementos pareados paired = T
 # H0 -> a média é igual a media depois.
 # H1 -> a media antes NÃO é igual a media depois
-t.test(dados1$Conhecimento_Antes, dados1$Conhecimento_Depois, paired = T) # teste Bi-caudal
+t.test(dados1$Conhecimento_Depois, dados1$Conhecimento_Antes, paired = T) # teste Bi-caudal
 
-# > t.test(dados1$Conhecimento_Antes, dados1$Conhecimento_Depois, paired = T) # teste Bi-caudal
+# > t.test(dados1$Conhecimento_Depois, dados1$Conhecimento_Antes, paired = T) # teste Bi-caudal
 # 
 # Paired t-test
 # 
-# data:  dados1$Conhecimento_Antes and dados1$Conhecimento_Depois
-# t = -42.602, df = 282, p-value < 2.2e-16
+# data:  dados1$Conhecimento_Depois and dados1$Conhecimento_Antes
+# t = 42.602, df = 282, p-value < 2.2e-16
 # alternative hypothesis: true difference in means is not equal to 0
 # 95 percent confidence interval:
-#   -2.894623 -2.638946
+#   2.638946 2.894623
 # sample estimates:
 #   mean of the differences 
-# -2.766784 
+# 2.766784  
 
 
 
-# conclusão: com p-value = 2.2e-16 é menor que 0.05 que é o alfa de significancia, rejeita H0
-# logo, a média antes do treinamento é diferente do depois do treinamento.
+# conclusão: com p-value = 2.2e-16M 0.05 que é o alfa de significancia, rejeita H0, aceita h1
+# logo, há diferença entre o nível de conhecimento antes de depois da formação 
 
 
 
@@ -152,3 +169,18 @@ t.test(dados1$Conhecimento_Antes, dados1$Conhecimento_Depois, alternative = "les
 
 # conclusão: com p-value = 2.2e-16 é menor que 0.05 que é o alfa de significancia, rejeita H0 e assumimos h1
 # logo, a media antes é menor que a media depois
+
+
+
+# dentro do rank se mudou de posição
+wilcox.test(dados1$Conhecimento_Depois, dados1$Conhecimento_Antes, paired = T)
+# > wilcox.test(dados1$Conhecimento_Depois, dados1$Conhecimento_Antes, paired = T)
+# 
+# Wilcoxon signed rank test with continuity correction
+# 
+# data:  dados1$Conhecimento_Depois and dados1$Conhecimento_Antes
+# V = 37401, p-value < 2.2e-16
+# alternative hypothesis: true location shift is not equal to 0
+
+# conclusão, como o p-value = 0000 < 0.05, rejeitamos H0 e aceitamos H1, 
+# confirmando o teste t

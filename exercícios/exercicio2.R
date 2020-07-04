@@ -9,69 +9,94 @@
 #DIRETÓRIO DE TRABALHO
 setwd('C:\\repositorios\\posdc-inferencia-estatistica-modelo-previsao\\exercícios')
 
+library(fBasics)
+library(car)
+library(normtest)
+
 
 # carregar o database
 dados2 <- read.csv("Clima Organizacional.csv", header=T, sep=";", dec = ".")
 
 
 # estatítica descritiva
+summary(dados2$Salario)
 summary(dados2$Salario[dados2$Sexo == 0])#home
-sd(dados2$Salario[dados2$Sexo == 0])
-sd(dados2$Salario[dados2$Sexo == 0]) /mean(dados2$Salario[dados2$Sexo == 0]) 
+summary(dados2$Salario[dados2$Sexo == 1])#mulher
 
+# > summary(dados2$Salario)
+# Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+# 665    2858    3563    3565    4284    6465 
 # > summary(dados2$Salario[dados2$Sexo == 0])#home
 # Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 # 1176    3236    3851    3885    4588    6465 
-# > sd(dados2$Salario[dados2$Sexo == 0])
-# [1] 995.5011
-# > sd(dados2$Salario[dados2$Sexo == 0]) /mean(dados2$Salario[dados2$Sexo == 0]) 
-# [1] 0.2562171
-
-
-
-summary(dados2$Salario[dados2$Sexo == 1])#mulher
-sd(dados2$Salario[dados2$Sexo == 1])
-sd(dados2$Salario[dados2$Sexo == 1]) /mean(dados2$Salario[dados2$Sexo == 1])
-
 # > summary(dados2$Salario[dados2$Sexo == 1])#mulher
 # Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 # 665    2606    3270    3281    3994    6277 
-# > sd(dados2$Salario[dados2$Sexo == 1])
-# [1] 1037.076
-# > sd(dados2$Salario[dados2$Sexo == 1]) /mean(dados2$Salario[dados2$Sexo == 1])
-# [1] 0.3160618
+# > 
+
+
+basicStats(dados2$Salario)
+basicStats(dados2$Salario[dados2$Sexo == 0])#home
+basicStats(dados2$Salario[dados2$Sexo == 1])#mulher
+ 
+# > basicStats(dados2$Salario)
+# X..dados2.Salario
+# nobs             4.230000e+02
+# NAs              0.000000e+00
+# Minimum          6.650000e+02
+# Maximum          6.465000e+03
+# 1. Quartile      2.858500e+03
+# 3. Quartile      4.284000e+03
+# Mean             3.565461e+03
+# Median           3.563000e+03
+# Sum              1.508190e+06
+# SE Mean          5.155895e+01
+# LCL Mean         3.464117e+03
+# UCL Mean         3.666805e+03
+# Variance         1.124471e+06
+# Stdev            1.060411e+03
+# Skewness        -4.883200e-02
+# Kurtosis        -1.301220e-01
+# > basicStats(dados2$Salario[dados2$Sexo == 0])#home
+# X..dados2.Salario.dados2.Sexo....0
+# nobs                                199.000000
+# NAs                                   0.000000
+# Minimum                            1176.000000
+# Maximum                            6465.000000
+# 1. Quartile                        3236.000000
+# 3. Quartile                        4587.500000
+# Mean                               3885.381910
+# Median                             3851.000000
+# Sum                              773191.000000
+# SE Mean                              70.569205
+# LCL Mean                           3746.218204
+# UCL Mean                           4024.545615
+# Variance                         991022.520075
+# Stdev                               995.501140
+# Skewness                             -0.070934
+# Kurtosis                              0.018018
+# > basicStats(dados2$Salario[dados2$Sexo == 1])#mulher
+# X..dados2.Salario.dados2.Sexo....1
+# nobs                              2.240000e+02
+# NAs                               0.000000e+00
+# Minimum                           6.650000e+02
+# Maximum                           6.277000e+03
+# 1. Quartile                       2.606500e+03
+# 3. Quartile                       3.993500e+03
+# Mean                              3.281246e+03
+# Median                            3.270500e+03
+# Sum                               7.349990e+05
+# SE Mean                           6.929257e+01
+# LCL Mean                          3.144694e+03
+# UCL Mean                          3.417798e+03
+# Variance                          1.075527e+06
+# Stdev                             1.037076e+03
+# Skewness                          1.639700e-02
+# Kurtosis                         -1.930880e-01
 
 
 
-# Considerando a média pode considerar que o conhecimento aumento na média.
 
-skewness(dados2$Salario[dados2$Sexo == 0])
-skewness(dados2$Salario[dados2$Sexo == 1])#mulher
-
-# > skewness(dados2$Salario[dados2$Sexo == 0])
-# [1] -0.07093351
-# attr(,"method")
-# [1] "moment"
-# > skewness(dados2$Salario[dados2$Sexo == 1])
-# [1] 0.01639686
-# attr(,"method")
-# [1] "moment"
-
-
-# R: Não tem problema de assimetria
-
-
-kurtosis(dados2$Salario[dados2$Sexo == 0])
-kurtosis(dados2$Salario[dados2$Sexo == 1])#mulher
-
-# > kurtosis(dados2$Salario[dados2$Sexo == 0])
-# [1] 0.01801823
-# attr(,"method")
-# [1] "excess"
-# > kurtosis(dados2$Salario[dados2$Sexo == 1])
-# [1] -0.1930883
-# attr(,"method")
-# [1] "excess"
 
 # Não tem problemas de Curtose
 library(normtest)
@@ -124,8 +149,12 @@ leveneTest(dados2$Salario, dados2$Sexo)
 # In leveneTest.default(dados2$Salario, dados2$Sexo) :
 #   dados2$Sexo coerced to factor.
 
-# Como analisar?????
+# Pr(>F) > 0.05, 
+# Como 0.3893 > 0.05, então aceitamos H0, logo as veriáncias são iguals
+## é invertido
 
+
+# gráfico
 
 plot(dados2$Salario, dados2$Sexo, xlab="Salário", ylab="Sexo")
 abline(h=c(0,1), v=c(mean(dados2$Salario[dados2$Sexo == 0])), col="red")
@@ -133,8 +162,8 @@ abline(h=c(0,1), v=c(mean(dados2$Salario[dados2$Sexo == 1])), col="blue")
 
 
 # teste t amostra idependente
-#H0 -> salário das mulher é igual ao dos homens
-#H0 -> o salário das mulhers não é igual dos homnes
+#H0 -> as médias são iguais
+#H0 -> as médias são diferentes
 
 t.test(dados2$Salario ~ dados2$Sexo, var.equals=T)
 
@@ -152,6 +181,9 @@ t.test(dados2$Salario ~ dados2$Sexo, var.equals=T)
 # 3885.382        3281.246 
 
 # Considerando o p-value 2.301e-09 < 0.05, logo rejeitamos HO, a media salárial dos homens é diferente das mulheres
+# A média do salário do homens é maior que as mulheres podemos, os em média possuem um salário maior que as mulheres.
+
+
 
 
 

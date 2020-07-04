@@ -156,5 +156,82 @@ Teste de hipóteses
 	
 ## teste Qui-quadrado
 	- Qualitativa X qualitativa, de duas ou mais categorias.
-	- 
+
+
+## Aula 3
+
+	- pressuposto
+		- Normalidade
+		- Levene (igualdade das variâncias)
+	- Exe1:
+		- mesmo individuos antes X depois
+		- par te indicações
+		- Teste t de duas amostras, pareadas.
+		- intervalo de confiança 
+		- os limites do grupos é diferente, não existe uma intersecção nos dois grupos, assim antes é diferente do depois
+		- se tiver intersecção, mesmo a médias diferentes, pode ser iguais, 
+			- 15% pode estar invertendo as médias, assim não pode assumir com 95% de certeza, que foi eficar
+			- o antes é igual ao depois, porque deu 15%
+			- em uma opinião conservasora.
+	- Exe 2
+		- 2 grupos diferentes
+		- test t de 2 amostras independêntes
+	- Exe 3
+		- 3 grupos de diferentes individuos
+			- teste ANOVA
+	- Passos
+		- descritiva
+		- presuposto
+			- 
+			- Levene, 
+		- teste t
+		### correlação
+			- em que grau as variáveis ser relacionam.
+			- relação entre duas variáveis numéricas.
+			- os teste de hipotese, mensuram relação entre uma variável, numerica e uma categorica. Ex.: Preço X tipo comida, salário X sexo, Conhecimento antes X conhecimento Depois
+			- focar em duas variáveis numericas, procurando o grau de associação entre elas
+			- covariância, grau de associa bruto, ( contaminado pela escala )
+			- correlação, media padronizada da escala, (sem efeitos de escala)
+			- resultado:
+				- + relacionamento majoritariamente direta.
+				- - relacionamento mejoritariamente inveresa;
+		- Person
+			- precisa a normalidade dos dados, porque esta muito centrado na média.
+		- Sperman
+			- principal alternativa a coorelação de pearson
+			- utliza a média
+			- util para escalas lickert, (satisfação ao atendimento, 0 a 5)
+			- inversão, ultimo -> primeiro, segundo -> penultimo,
+			- A interpretação do coefiênte é a mesma, data a correlação de person
+			- -1 a 1 
+		- Kendall
+			- Melhor para Rank
+			- existem concordancia ou não entre as relações
+			- relação:
+				- -1 > 0 inversa
+				- 0 > 1 direta
+			- não é bom para comparar valores que não seja relacionados;
+			- comparar posição de times no campeonato brasileiro, é rank
+		- Sperman e Kendall, X2 ou normal padrão
+		- Kendall e Sperman, Não funcionam bem para empates de valores
+		- Warning message:
+			- In cor.test.default(peso$Estatura, peso$Peso, method = "kendall") :
+			- Impossível calcular o valor exato de p com empates
+		### Regressão
+			- função de causalidade
+			- como elas se relacionam?
+				- quem manda em quem?
+					- peso influi na altura ou altura influencia no peso?
+				- qual o modelo funcional?
+					- linear, não linear, proporcional ou não proporcional.
+			- Variaveis independente 
+				- preditoras
+					- agentes, 
+				- explicativas
+			- Variável dependente
+				- consequente 
+			- exemplo: celic -> inflação, agente celic conseguente inflação.
+			- variável dummy (dicotômica)
+				-	0 - home, 1 - mulher
+	
 
