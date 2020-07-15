@@ -156,9 +156,13 @@ leveneTest(dados2$Stress, dados2$Sexo)
 
 # gráfico
 
-plot(dados2$Stress, dados2$Sexo, xlab="Salário", ylab="Sexo")
-abline(h=c(0,1), v=c(mean(dados2$Stress[dados2$Sexo == 0])), col="red")
-abline(h=c(0,1), v=c(mean(dados2$Stress[dados2$Sexo == 1])), col="blue")
+#plot(dados2$Stress, dados2$Sexo, xlab="Salário", ylab="Sexo")
+#abline(h=c(0,1), v=c(mean(dados2$Stress[dados2$Sexo == 0])), col="red")
+#abline(h=c(0,1), v=c(mean(dados2$Stress[dados2$Sexo == 1])), col="blue")
+
+plot(dados$salario, dados$sexo, xlab="Salário", ylab="Sexo")
+abline(v=mean(dados$salario[dados$sexo == 0]), col="red") #homem
+abline(v=mean(dados$salario[dados$sexo == 1]), col="green") #mulher
 
 
 # teste t amostra idependente
