@@ -705,3 +705,543 @@ summary(ANOVA)
 # Conclusão: com o p-value = 7.86e-11 < 0.05, então rejeita a H0 e aceita H1
 
 
+
+##########################################
+# e) O tempo de experiência médio é diferente para homens e mulheres?
+############################################
+
+
+
+# Estatítica descritiva
+
+summary(dados$experiencia) #Geral
+summary(dados$experiencia[dados$sexo == 0]) #home
+summary(dados$experiencia[dados$sexo == 1]) #mulher
+
+# > summary(dados$experiencia) #Geral
+# Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+# 0.00    9.00   18.00   18.79   27.00   56.00 
+# > summary(dados$experiencia[dados$sexo == 0]) #home
+# Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+# 0.00    9.00   18.00   19.05   27.00   52.00 
+# > summary(dados$experiencia[dados$sexo == 1]) #mulher
+# Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+# 0.00    9.00   17.00   18.52   27.00   56.00 
+
+# R: Considerando a estatística descritiva a média de experiência geral é 18.79, das mulheres 18.52 e dos homens 19.05.
+
+
+basicStats(dados$experiencia) #Geral
+basicStats(dados$experiencia[dados$sexo == 0]) #home
+basicStats(dados$experiencia[dados$sexo == 1]) #mulher
+
+# > basicStats(dados$experiencia) #Geral
+# X..dados.experiencia
+# nobs                 1289.000000
+# NAs                     0.000000
+# Minimum                 0.000000
+# Maximum                56.000000
+# 1. Quartile             9.000000
+# 3. Quartile            27.000000
+# Mean                   18.789760
+# Median                 18.000000
+# Sum                 24220.000000
+# SE Mean                 0.324846
+# LCL Mean               18.152474
+# UCL Mean               19.427045
+# Variance              136.021758
+# Stdev                  11.662837
+# Skewness                0.375232
+# Kurtosis               -0.675665
+# > basicStats(dados$experiencia[dados$sexo == 0]) #home
+# X..dados.experiencia.dados.sexo....0
+# nobs                                  648.000000
+# NAs                                     0.000000
+# Minimum                                 0.000000
+# Maximum                                52.000000
+# 1. Quartile                             9.000000
+# 3. Quartile                            27.000000
+# Mean                                   19.052469
+# Median                                 18.000000
+# Sum                                 12346.000000
+# SE Mean                                 0.449222
+# LCL Mean                               18.170359
+# UCL Mean                               19.934579
+# Variance                              130.766949
+# Stdev                                  11.435338
+# Skewness                                0.361129
+# Kurtosis                               -0.668325
+# > basicStats(dados$experiencia[dados$sexo == 1]) #mulher
+# X..dados.experiencia.dados.sexo....1
+# nobs                                  641.000000
+# NAs                                     0.000000
+# Minimum                                 0.000000
+# Maximum                                56.000000
+# 1. Quartile                             9.000000
+# 3. Quartile                            27.000000
+# Mean                                   18.524181
+# Median                                 17.000000
+# Sum                                 11874.000000
+# SE Mean                                 0.469683
+# LCL Mean                               17.601875
+# UCL Mean                               19.446487
+# Variance                              141.406055
+# Stdev                                  11.891428
+# Skewness                                0.392254
+# Kurtosis                               -0.690275
+
+
+# Não temos problemas de Kutose e e assimetria em todos os grupos.
+
+
+#  Teste shapiro de normalidade, para verificar a normalidade dos dados, considerando:
+#  H0 - amostra esta dentro da normalidade
+#  H1 - amostra nãoesta dentro da normalidade  
+
+
+shapiro.test(dados$experiencia[dados$sexo == 0]) #home
+shapiro.test(dados$experiencia[dados$sexo == 1]) #mulher
+
+# > shapiro.test(dados$experiencia[dados$sexo == 0]) #home
+# 
+# Shapiro-Wilk normality test
+# 
+# data:  dados$experiencia[dados$sexo == 0]
+# W = 0.97011, p-value = 3.173e-10
+# 
+# > shapiro.test(dados$experiencia[dados$sexo == 1]) #mulher
+# 
+# Shapiro-Wilk normality test
+# 
+# data:  dados$experiencia[dados$sexo == 1]
+# W = 0.96514, p-value = 3.313e-11
+
+# Conclusão: 
+# como para homes o P-value= 3.173e-10 < 0.05, Rejeitamos a normalidade para homens.
+# como para mulheres o P-value= 3.313e-11 < 0.05, Rejeitamos a normalidade para mulheres.
+
+
+
+# Teste de Levene, para verificar a igualdade das variáncias. Hipoteses:
+# h0, as variancias são igual
+# h1, as variancias são diferentes
+
+leveneTest(dados$experiencia, dados$sexo)
+
+# > leveneTest(dados$experiencia, dados$sexo)
+# Levene's Test for Homogeneity of Variance (center = median)
+#         Df F value Pr(>F)
+# group    1  0.4262  0.514
+#       1287  
+
+# Conclusão: Como o p-value(Pr(>F)) 0.514 > 0.05, Aceitamos H0, e rejeitamos H1,
+# Logo a variáncia em relação a experiência de homens e mulheres é a mesma
+
+
+
+
+# teste t amostra idependentes
+# H0 -> as médias são iguais
+# H1 -> as médias são diferentes
+
+t.test(dados$experiencia ~ dados$sexo, var.equals=T)
+
+# > t.test(dados$experiencia ~ dados$sexo, var.equals=T)
+# 
+# Welch Two Sample t-test
+# 
+# data:  dados$experiencia by dados$sexo
+# t = 0.81284, df = 1283.8, p-value = 0.4165
+# alternative hypothesis: true difference in means is not equal to 0
+# 95 percent confidence interval:
+#   -0.7467444  1.8033208
+# sample estimates:
+#   mean in group 0 mean in group 1 
+# 19.05247        18.52418 
+
+# Considerando o p-value 0.4165 < 0.05, logo rejeitamos HO, a media de experiência dos homens é diferente das mulheres
+# A média de experiência dos homens é de 19.05247 é maior que o das mulheres que é 18.52418
+
+
+
+# Teste wilcox, ignora a normalidade
+# H0 -> as médias são iguais
+# H1 -> as médias são diferentes
+
+wilcox.test(dados$experiencia~dados$sexo)
+# > wilcox.test(dados$experiencia~dados$sexo)
+# 
+# Wilcoxon rank sum test with continuity correction
+# 
+# data:  dados$experiencia by dados$sexo
+# W = 214429, p-value = 0.3127
+# alternative hypothesis: true location shift is not equal to 0
+
+
+# Considerando o p-value 0.3127 < 0.05, logo rejeitamos HO, a media de experiência dos homens é diferente das mulheres
+
+
+
+
+####################################################################
+# f) A idade média dos casados é diferente da idade média dos solteiros?
+####################################################################
+
+# Estatítica descritiva
+
+summary(dados$idade) #Geral
+summary(dados$idade[dados$est_civil == 0]) #solteira
+summary(dados$idade[dados$est_civil == 1]) #casado
+
+# > summary(dados$idade) #Geral
+# Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+# 18.00   29.00   37.00   37.93   47.00   65.00 
+# > summary(dados$idade[dados$est_civil == 0]) #solteira
+# Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+# 18.00   28.00   36.00   37.15   45.25   65.00 
+# > summary(dados$idade[dados$est_civil == 1]) #casado
+# Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+# 18.0    34.0    42.0    42.1    50.0    65.0  
+
+# R: Considerando a estatística descritiva a média de idade geral é 37.93, das solteiros 37.15 e dos casados 42.1.
+
+
+basicStats(dados$idade) #Geral
+basicStats(dados$idade[dados$est_civil == 0]) #solteira
+basicStats(dados$idade[dados$est_civil == 1]) #casado
+
+# > basicStats(dados$idade) #Geral
+# X..dados.idade
+# nobs           1289.000000
+# NAs               0.000000
+# Minimum          18.000000
+# Maximum          65.000000
+# 1. Quartile      29.000000
+# 3. Quartile      47.000000
+# Mean             37.934833
+# Median           37.000000
+# Sum           48898.000000
+# SE Mean           0.320151
+# LCL Mean         37.306758
+# UCL Mean         38.562908
+# Variance        132.118421
+# Stdev            11.494278
+# Skewness          0.269270
+# Kurtosis         -0.772023
+# > basicStats(dados$idade[dados$est_civil == 0]) #solteira
+# X..dados.idade.dados.est_civil....0
+# nobs                                1084.000000
+# NAs                                    0.000000
+# Minimum                               18.000000
+# Maximum                               65.000000
+# 1. Quartile                           28.000000
+# 3. Quartile                           45.250000
+# Mean                                  37.147601
+# Median                                36.000000
+# Sum                                40268.000000
+# SE Mean                                0.347953
+# LCL Mean                              36.464863
+# UCL Mean                              37.830340
+# Variance                             131.241352
+# Stdev                                 11.456062
+# Skewness                               0.334386
+# Kurtosis                              -0.738434
+# > basicStats(dados$idade[dados$est_civil == 1]) #casado
+# X..dados.idade.dados.est_civil....1
+# nobs                                 205.000000
+# NAs                                    0.000000
+# Minimum                               18.000000
+# Maximum                               65.000000
+# 1. Quartile                           34.000000
+# 3. Quartile                           50.000000
+# Mean                                  42.097561
+# Median                                42.000000
+# Sum                                 8630.000000
+# SE Mean                                0.754550
+# LCL Mean                              40.609844
+# UCL Mean                              43.585278
+# Variance                             116.715925
+# Stdev                                 10.803514
+# Skewness                               0.023927
+# Kurtosis                              -0.690255
+
+
+# Não temos problemas de Kutose e e assimetria em todos os grupos.
+
+
+#  Teste shapiro de normalidade, para verificar a normalidade dos dados, considerando:
+#  H0 - amostra esta dentro da normalidade
+#  H1 - amostra nãoesta dentro da normalidade  
+
+
+shapiro.test(dados$idade[dados$est_civil == 0]) #solteira
+shapiro.test(dados$idade[dados$est_civil == 1]) #casado
+
+
+# 
+# > shapiro.test(dados$idade[dados$est_civil == 0]) #solteira
+# 
+# Shapiro-Wilk normality test
+# 
+# data:  dados$idade[dados$est_civil == 0]
+# W = 0.97135, p-value = 8.32e-14
+# 
+# > shapiro.test(dados$idade[dados$est_civil == 1]) #casado
+# 
+# Shapiro-Wilk normality test
+# 
+# data:  dados$idade[dados$est_civil == 1]
+# W = 0.98779, p-value = 0.07607
+
+# Conclusão: 
+# como para solteira o P-value= 8.32e-14 < 0.05, Rejeitamos a normalidade para solteiros.
+# como para mulheres o P-value= 0.07607 > 0.05, Não rejeitamos a normalidade para casados
+
+
+
+# Teste de Levene, para verificar a igualdade das variáncias. Hipoteses:
+# h0, as variancias são igual
+# h1, as variancias são diferentes
+
+leveneTest(dados$idade, dados$est_civil)
+
+# > leveneTest(dados$idade, dados$est_civil)
+# Levene's Test for Homogeneity of Variance (center = median)
+#         Df F value Pr(>F)
+# group    1  1.8852   0.17
+#       1287 
+
+# Conclusão: Como o p-value(Pr(>F)) 0.17 > 0.05, Aceitamos H0, e rejeitamos H1,
+# Logo a variáncia em relação a idade dos casados e solteiros é a mesma
+
+
+
+
+# teste t amostra idependentes
+# H0 -> as médias são iguais
+# H1 -> as médias são diferentes
+
+t.test(dados$idade ~ dados$est_civil, var.equals=T)
+
+# > t.test(dados$idade ~ dados$est_civil, var.equals=T)
+# 
+# Welch Two Sample t-test
+# 
+# data:  dados$idade by dados$est_civil
+# t = -5.9572, df = 297.45, p-value = 7.235e-09
+# alternative hypothesis: true difference in means is not equal to 0
+# 95 percent confidence interval:
+#   -6.585174 -3.314745
+# sample estimates:
+#   mean in group 0 mean in group 1 
+# 37.14760        42.09756 
+
+# Considerando o p-value 7.235e-09 < 0.05, logo rejeitamos HO, a media de idade dos casados é diferente dos solteiros.
+# A média de idade dos casados é de 42.09756  é maior que o dos solteiros que é 37.14760.
+
+
+
+# Teste wilcox, ignora a normalidade
+# H0 -> as médias são iguais
+# H1 -> as médias são diferentes
+
+wilcox.test(dados$idade~dados$est_civil)
+# > wilcox.test(dados$idade~dados$est_civil)
+# 
+# Wilcoxon rank sum test with continuity correction
+# 
+# data:  dados$idade by dados$est_civil
+# W = 82952, p-value = 8.259e-09
+# alternative hypothesis: true location shift is not equal to 0
+
+
+# Considerando o p-value 8.259e-09 < 0.05, logo rejeitamos HO, a media de idade dos casados é diferente dos solteiros.
+
+
+
+
+# Questão 2 (3,00 pontos) – Analisando o banco de dados apresentado, é possível ]
+# afirmar que haveria alguma das relações destacadas a seguir? Destaque o grau de
+# associação para cada uma das relações apresentadas e verifique se 
+# seria significativo.
+
+###############################################################################
+# g) Há relação entre Salário e Experiência?
+###############################################################################
+
+# correlação
+# h0 -> r = 0 (Não a uma associação)
+# H1 -> r != 0 (há a uma associação)
+
+
+shapiro.test(dados$salario) 
+shapiro.test(dados$experiencia) 
+
+cor.test(dados$salario, dados$experiencia, method = "pearson")
+
+# > cor.test(dados$salario, dados$experiencia, method = "pearson")
+# 
+# Pearson's product-moment correlation
+# 
+# data:  dados$salario and dados$experiencia
+# t = 6.3079, df = 1287, p-value = 3.882e-10
+# alternative hypothesis: true correlation is not equal to 0
+# 95 percent confidence interval:
+#  0.1197048 0.2256402
+# sample estimates:
+#       cor 
+# 0.1731733
+
+# conclusão: o coeficiênte de correlação foi de 0.1731733 (fraca) com p-value 3.882e-10 < 0.05 = Alfa, rejeitamos h0.
+#Logo, a associação fraca entre o salario X experiencia
+
+
+
+
+###############################################################################
+# h) Há relação entre Salário e tempo de Instrução?
+###############################################################################
+
+
+shapiro.test(dados$salario) 
+shapiro.test(dados$instrucao) 
+
+cor.test(dados$salario, dados$instrucao, method = "pearson")
+
+# > cor.test(dados$salario, dados$instrucao, method = "pearson")
+# 
+# Pearson's product-moment correlation
+# 
+# data:  dados$salario and dados$instrucao
+# t = 18.408, df = 1287, p-value < 2.2e-16
+# alternative hypothesis: true correlation is not equal to 0
+# 95 percent confidence interval:
+#  0.4121919 0.4986880
+# sample estimates:
+#      cor 
+# 0.456518 
+
+
+# conclusão: o coeficiênte de correlação foi de 0.456518 (moderado) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
+#Logo, a associação moderada entre o salario X instrução
+
+
+###############################################################################
+# i) Há relação entre Salário e Idade dos indivíduos investigados?
+###############################################################################
+
+
+shapiro.test(dados$salario) 
+shapiro.test(dados$idade) 
+
+cor.test(dados$salario, dados$idade, method = "pearson")
+
+# > cor.test(dados$salario, dados$idade, method = "pearson")
+# 
+# Pearson's product-moment correlation
+# 
+# data:  dados$salario and dados$idade
+# t = 10.767, df = 1287, p-value < 2.2e-16
+# alternative hypothesis: true correlation is not equal to 0
+# 95 percent confidence interval:
+#  0.2365824 0.3367836
+# sample estimates:
+#       cor 
+# 0.2874694 
+
+
+# conclusão: o coeficiênte de correlação foi de 0.2874694 (fraca) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
+#Logo, a associação fraca entre o salario X idade
+
+
+cor.test(dados$salario, dados$idade,  method = "spearman")
+
+# > cor.test(dados$salario, dados$idade,  method = "spearman")
+# 
+# Spearman's rank correlation rho
+# 
+# data:  dados$salario and dados$idade
+# S = 235232055, p-value < 2.2e-16
+# alternative hypothesis: true rho is not equal to 0
+# sample estimates:
+#       rho 
+# 0.3409942 
+
+# conclusão: o coeficiênte de correlação foi de 0.3409942 (fraca) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
+#Logo, a associação fraca entre o salario X idade
+
+
+
+cor.test(dados$salario, dados$idade, method = "kendall")
+
+# > cor.test(dados$salario, dados$idade, method = "kendall")
+# 
+# Kendall's rank correlation tau
+# 
+# data:  dados$salario and dados$idade
+# z = 12.663, p-value < 2.2e-16
+# alternative hypothesis: true tau is not equal to 0
+# sample estimates:
+#       tau 
+# 0.2393206 
+
+# conclusão: o coeficiênte de correlação foi de 0.2393206  (fraca) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
+#Logo, a associação fraca entre o salario X idade
+
+###############################################################################
+# j) Há relação entre a Experiência e a Idade dos Indivíduos?
+###############################################################################
+
+
+cor.test(dados$experiencia, dados$idade, method = "pearson")
+
+# > cor.test(dados$experiencia, dados$idade, method = "pearson")
+# 
+# Pearson's product-moment correlation
+# 
+# data:  dados$experiencia and dados$idade
+# t = 144.6, df = 1287, p-value < 2.2e-16
+# alternative hypothesis: true correlation is not equal to 0
+# 95 percent confidence interval:
+#  0.9672319 0.9735816
+# sample estimates:
+#      cor 
+# 0.970575 
+
+
+# conclusão: o coeficiênte de correlação foi de 0.970575 (forte) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
+#Logo, a associação forte entre o experiencia X idade
+
+
+cor.test(dados$experiencia, dados$idade,  method = "spearman")
+# > cor.test(dados$experiencia, dados$idade,  method = "spearman")
+# 
+# Spearman's rank correlation rho
+# 
+# data:  dados$experiencia and dados$idade
+# S = 10086682, p-value < 2.2e-16
+# alternative hypothesis: true rho is not equal to 0
+# sample estimates:
+#      rho 
+# 0.971742 
+
+# conclusão: o coeficiênte de correlação foi de 0.971742 (Forte) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
+#Logo, a associação fraca entre o experiencia X idade
+
+
+
+cor.test(dados$experiencia, dados$idade, method = "kendall")
+
+# > cor.test(dados$experiencia, dados$idade, method = "kendall")
+# 
+# Kendall's rank correlation tau
+# 
+# data:  dados$experiencia and dados$idade
+# z = 46.335, p-value < 2.2e-16
+# alternative hypothesis: true tau is not equal to 0
+# sample estimates:
+#       tau 
+# 0.8823579 
+
+# conclusão: o coeficiênte de correlação foi de 0.8823579  (Forte) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
+#Logo, a associação fraca entre o experiencia X idade
