@@ -2,14 +2,14 @@
 # TRABALHO FINAL - Questão 1  #
 ###############################
 
+
+# Questão 1 (3,00) – Considerando os dados apresentados acima, construa os 
 setwd('C:\\repositorios\\posdc-inferencia-estatistica-modelo-previsao\\avaliação final');
 
 library(fBasics)
 library(car)
 library(normtest)
 
-
-# Questão 1 (3,00) – Considerando os dados apresentados acima, construa os 
 # testes de hipótese dadas as questões apresentadas. Elaborar: 
 # (i) A hipótese nula e a alternativa a ser testada; 
 # (ii) Destaque o teste que será realizado; 
@@ -1245,3 +1245,162 @@ cor.test(dados$experiencia, dados$idade, method = "kendall")
 
 # conclusão: o coeficiênte de correlação foi de 0.8823579  (Forte) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
 #Logo, a associação fraca entre o experiencia X idade
+
+
+##############################################################################
+#Questão 3 (4,00 pontos) – O banco de dados descrito acima, foi utilizado para 
+#investigar o poder preditivo dos fatores destacados na base sobre o salário. 
+#Desta forma apresente o modelo de regressão que ajude a entender a forma como 
+#cada uma destas variáveis explicativas explica o salário das pessoas 
+#investigadas. Considere o seguinte modelo e responda as questões que seguem:
+#  𝑠𝑎𝑙𝑎𝑟𝑖𝑜𝑖= 𝛽0+𝛽1𝑠𝑒𝑥𝑜𝑖
+#                    +𝛽2𝑐𝑜𝑟𝑖
+#                    +𝛽3𝑒𝑠𝑡𝑐𝑖𝑣𝑖𝑙𝑖
+#                    +𝛽4𝑖𝑛𝑠𝑡𝑟𝑢𝑐𝑎𝑜𝑖
+#                    +𝛽5𝑒𝑥𝑝𝑒𝑟𝑖𝑒𝑛𝑐𝑖𝑎𝑖
+#                    +𝛽6𝑖𝑑𝑎𝑑𝑒𝑖
+#                    +𝜀𝑖
+#
+################################################################################
+
+dados["sexo_mas"]<-NA
+
+for(i in 1:length(dados$sexo)){
+  if(dados$sexo[i] == 0 ){
+    dados$sexo_mas[i] <- 1
+  } else {
+    dados$sexo_mas[i] <- 0
+  }
+}
+
+dados["sexo_fem"]<-NA
+
+for(i in 1:length(dados$sexo)){
+  if(dados$sexo[i] == 1 ){
+    dados$sexo_fem[i] <- 1
+  } else {
+    dados$sexo_fem[i] <- 0
+  }
+}
+
+
+dados["cor_bra"]<-NA
+
+for(i in 1:length(dados$cor)){
+  if(dados$cor[i] == 0 ){
+    dados$cor_bra[i] <- 1
+  } else {
+    dados$cor_bra[i] <- 0
+  }
+}
+
+
+dados["cor_nao_bra"]<-NA
+
+for(i in 1:length(dados$cor)){
+  if(dados$cor[i] == 1 ){
+    dados$cor_nao_bra[i] <- 1
+  } else {
+    dados$cor_nao_bra[i] <- 0
+  }
+}
+
+
+dados["est_civil_sol"]<-NA
+
+for(i in 1:length(dados$est_civil)){
+  if(dados$est_civil[i] == 0 ){
+    dados$est_civil_sol[i] <- 1
+  } else {
+    dados$est_civil_sol[i] <- 0
+  }
+}
+
+dados["est_civil_cas"]<-NA
+
+for(i in 1:length(dados$est_civil)){
+  if(dados$est_civil[i] == 1 ){
+    dados$est_civil_cas[i] <- 1
+  } else {
+    dados$est_civil_cas[i] <- 0
+  }
+}
+
+salario_mod <- lm(dados$salario ~ dados$sexo_mas+dados$sexo_fem +dados$cor_bra+dados$cor_nao_bra +dados$est_civil_sol + dados$est_civil_cas + dados$instrucao + dados$experiencia + dados$idade)
+
+# summary(salario_mod)
+# > summary(salario_mod)
+# 
+# Call:
+#   lm(formula = dados$salario ~ dados$sexo_mas + dados$sexo_fem + 
+#        dados$cor_bra + dados$cor_nao_bra + dados$est_civil_sol + 
+#        dados$est_civil_cas + dados$instrucao + dados$experiencia + 
+#        dados$idade)
+# 
+# Residuals:
+#   Min      1Q  Median      3Q     Max 
+# -20.781  -3.760  -1.044   2.418  50.414 
+# 
+# Coefficients: (4 not defined because of singularities)
+# Estimate Std. Error t value Pr(>|t|)    
+#   (Intercept)         -10.72755    1.14623  -9.359  < 2e-16 ***
+#   dados$sexo_mas        3.07488    0.36462   8.433  < 2e-16 ***
+#   dados$sexo_fem             NA         NA      NA       NA    
+#   dados$cor_bra         1.56531    0.50919   3.074  0.00216 ** 
+#   dados$cor_nao_bra          NA         NA      NA       NA    
+#   dados$est_civil_sol  -1.09598    0.50608  -2.166  0.03052 *  
+#   dados$est_civil_cas        NA         NA      NA       NA    
+#   dados$instrucao       1.37030    0.06590  20.792  < 2e-16 ***
+#   dados$experiencia     0.16661    0.01605  10.382  < 2e-16 ***
+#   dados$idade                NA         NA      NA       NA    
+# ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# Residual standard error: 6.508 on 1283 degrees of freedom
+# Multiple R-squared:  0.3233,	Adjusted R-squared:  0.3207 
+# F-statistic: 122.6 on 5 and 1283 DF,  p-value: < 2.2e-16
+
+
+
+
+# k) Sabendo que as variáveis 𝛽1, 𝛽2 e 𝛽3 são todas variáveis dummies
+# (dicotômicas), qual deveria ser a interpretação dada destes coeficientes 
+# sobre o salário?
+################################################################################
+
+################################################################################
+# l) Qual é o poder explicativo do modelo (percentual de variância explicada)?
+################################################################################
+
+################################################################################
+# m) De modelo geral, o modelo foi significativo?
+################################################################################
+
+################################################################################ 
+# n) É possível afirmar que o grau de instrução do indivíduo afeta 
+# significativamente no seu salário? A que nível de significância?
+################################################################################
+
+
+################################################################################
+# o) É possível afirmar que o estado civil do indivíduo afeta significativamente
+# no seu salário? A que nível de significância?
+################################################################################
+
+
+################################################################################
+# p) É possível afirmar que a experiência do indivíduo afeta significativamente 
+# no seu salário? A que nível de significância?
+################################################################################
+
+################################################################################
+#q) É possível afirmar que o sexo do indivíduo afeta significativamente no seu 
+# salário? A que nível de significância?
+################################################################################
+
+################################################################################
+# r) Considere o modelo de modo geral, principalmente os sinais de cada um dos 
+# coeficientes do modelo de regressão, os resultados fazem sentido 
+# conceitualmente para você? Justifique.
+################################################################################
+
