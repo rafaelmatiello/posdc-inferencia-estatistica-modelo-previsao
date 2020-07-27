@@ -1265,94 +1265,32 @@ cor.test(dados$experiencia, dados$idade, method = "kendall")
 
 dados["sexo_mas"]<-NA
 
-for(i in 1:length(dados$sexo)){
-  if(dados$sexo[i] == 0 ){
-    dados$sexo_mas[i] <- 1
-  } else {
-    dados$sexo_mas[i] <- 0
-  }
-}
 
-dados["sexo_fem"]<-NA
-
-for(i in 1:length(dados$sexo)){
-  if(dados$sexo[i] == 1 ){
-    dados$sexo_fem[i] <- 1
-  } else {
-    dados$sexo_fem[i] <- 0
-  }
-}
+# salario_mod <- lm(dados$salario ~ dados$sexo_mas+dados$sexo_fem +dados$cor_bra+dados$cor_nao_bra +dados$est_civil_sol + dados$est_civil_cas + dados$instrucao + dados$experiencia + dados$idade)
+salario_mod <- lm(formula = dados$salario ~ dados$sexo +dados$cor +dados$est_civil, data=dados)
 
 
-dados["cor_bra"]<-NA
+summary(salario_mod)
 
-for(i in 1:length(dados$cor)){
-  if(dados$cor[i] == 0 ){
-    dados$cor_bra[i] <- 1
-  } else {
-    dados$cor_bra[i] <- 0
-  }
-}
-
-
-dados["cor_nao_bra"]<-NA
-
-for(i in 1:length(dados$cor)){
-  if(dados$cor[i] == 1 ){
-    dados$cor_nao_bra[i] <- 1
-  } else {
-    dados$cor_nao_bra[i] <- 0
-  }
-}
-
-
-dados["est_civil_sol"]<-NA
-
-for(i in 1:length(dados$est_civil)){
-  if(dados$est_civil[i] == 0 ){
-    dados$est_civil_sol[i] <- 1
-  } else {
-    dados$est_civil_sol[i] <- 0
-  }
-}
-
-dados["est_civil_cas"]<-NA
-
-for(i in 1:length(dados$est_civil)){
-  if(dados$est_civil[i] == 1 ){
-    dados$est_civil_cas[i] <- 1
-  } else {
-    dados$est_civil_cas[i] <- 0
-  }
-}
-
-salario_mod <- lm(dados$salario ~ dados$sexo_mas+dados$sexo_fem +dados$cor_bra+dados$cor_nao_bra +dados$est_civil_sol + dados$est_civil_cas + dados$instrucao + dados$experiencia + dados$idade)
-
-# summary(salario_mod)
 # > summary(salario_mod)
 # 
 # Call:
-#   lm(formula = dados$salario ~ dados$sexo_mas + dados$sexo_fem + 
-#        dados$cor_bra + dados$cor_nao_bra + dados$est_civil_sol + 
-#        dados$est_civil_cas + dados$instrucao + dados$experiencia + 
-#        dados$idade)
+#   lm(formula = dados$salario ~ dados$sexo + dados$cor + dados$est_civil + 
+#        dados$instrucao + dados$experiencia + dados$idade)
 # 
 # Residuals:
 #   Min      1Q  Median      3Q     Max 
 # -20.781  -3.760  -1.044   2.418  50.414 
 # 
-# Coefficients: (4 not defined because of singularities)
-# Estimate Std. Error t value Pr(>|t|)    
-#   (Intercept)         -10.72755    1.14623  -9.359  < 2e-16 ***
-#   dados$sexo_mas        3.07488    0.36462   8.433  < 2e-16 ***
-#   dados$sexo_fem             NA         NA      NA       NA    
-#   dados$cor_bra         1.56531    0.50919   3.074  0.00216 ** 
-#   dados$cor_nao_bra          NA         NA      NA       NA    
-#   dados$est_civil_sol  -1.09598    0.50608  -2.166  0.03052 *  
-#   dados$est_civil_cas        NA         NA      NA       NA    
-#   dados$instrucao       1.37030    0.06590  20.792  < 2e-16 ***
-#   dados$experiencia     0.16661    0.01605  10.382  < 2e-16 ***
-#   dados$idade                NA         NA      NA       NA    
+# Coefficients: (1 not defined because of singularities)
+#   Estimate            Std.        Error   t value Pr(>|t|)    
+#   (Intercept)       -7.18334    1.01579  -7.072 2.51e-12 ***
+#   dados$sexo        -3.07488    0.36462  -8.433  < 2e-16 ***
+#   dados$cor         -1.56531    0.50919  -3.074  0.00216 ** 
+#   dados$est_civil    1.09598    0.50608   2.166  0.03052 *  
+#   dados$instrucao    1.37030    0.06590  20.792  < 2e-16 ***
+#   dados$experiencia  0.16661    0.01605  10.382  < 2e-16 ***
+#   dados$idade             NA         NA      NA       NA    
 # ---
 #   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 # 
@@ -1361,25 +1299,78 @@ salario_mod <- lm(dados$salario ~ dados$sexo_mas+dados$sexo_fem +dados$cor_bra+d
 # F-statistic: 122.6 on 5 and 1283 DF,  p-value: < 2.2e-16
 
 
+# Significância é representada pelo p-value e conforme explicado acima, 
+# o p-value representa a probabilidade que a variável não seja relevante para o
+# modelo, vamos utilizar a análise de variância (ANOVA) para visualizarmos o p
+# value. Podemos ver que nosso p-value (Pr(>F)) é quase nulo e tem um valor menor 
+# que 0,05, ou seja, a relação entre as variáveis é significativa.
+
+anova(salario_mod)
+# > anova(salario_mod)
+# Analysis of Variance Table
+# 
+# Response: dados$salario
+# Df Sum Sq Mean Sq F value    Pr(>F)    
+#   dados$sexo           1   4005  4004.5  94.545 < 2.2e-16 ***
+#   dados$cor            1   1124  1123.6  26.527 3.005e-07 ***
+#   dados$est_civil      1    696   696.1  16.436 5.336e-05 ***
+#   dados$instrucao      1  15578 15577.6 367.779 < 2.2e-16 ***
+#   dados$experiencia    1   4565  4565.4 107.787 < 2.2e-16 ***
+#   Residuals         1283  54343    42.4                      
+# ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# > 
+
+#A relação entre a várias é significatica, exceto com idade
+
 
 
 # k) Sabendo que as variáveis 𝛽1, 𝛽2 e 𝛽3 são todas variáveis dummies
 # (dicotômicas), qual deveria ser a interpretação dada destes coeficientes 
 # sobre o salário?
 ################################################################################
+# R: Como são variáveis dicotônicas, deveram ser separadas em dias variaveis com 
+# valores 0 e 1, para serem consideradas, caso contrário vai considera, que uma opção
+# vale o dobro da outra opção.
+
 
 ################################################################################
 # l) Qual é o poder explicativo do modelo (percentual de variância explicada)?
 ################################################################################
 
+# R: No modelo o R-squared: 0.3233, tem 32% da variação do salário é explicado 
+# pelas variáveis informadas
+
 ################################################################################
 # m) De modelo geral, o modelo foi significativo?
 ################################################################################
+# h0 Nâo existe uma significancia
+# h1 Existe uma significancia
+
+# R: Como o p-value = 2.2e-16 (0.0000) é menor que 0.05 = alfa, rejeitamos H0, modelo não significativo.
+# Logo, aceitamos H1 (modelo significativo), pode-se considerar que existe uma 
+# coerência, nas variáveis explicativas frente a variável dependente.
+
 
 ################################################################################ 
 # n) É possível afirmar que o grau de instrução do indivíduo afeta 
 # significativamente no seu salário? A que nível de significância?
 ################################################################################
+#   dados$instrucao    1.37030    0.06590  20.792  < 2e-16 ***
+# p-valor < 0,05, a correlação entre as duas variáveis é significativa,
+# p-valor > 0,05, a correlação entre as duas variáveis não é significativa.
+
+# Os símbolos apresentados do lado direito do p-value mostram para qual 
+# significância os coeficientes são significativos, quanto mais asteriscos, 
+# maior a significância de acordo com o p-value, ou seja, quanto mais asteriscos
+# maior a probabilidade de existir relacionamento entre as variáveis.
+
+
+# consideranco um p-value 2e-16 < 0.05, a correlação en relação ao grau de 
+# instrução é significativa, e o nível de significancia é de alto representado 
+# por 0 ‘***’ 0.001
+
+cor.test(dados$salario , dados$instrucao,method = "pearson")
 
 
 ################################################################################
@@ -1387,20 +1378,38 @@ salario_mod <- lm(dados$salario ~ dados$sexo_mas+dados$sexo_fem +dados$cor_bra+d
 # no seu salário? A que nível de significância?
 ################################################################################
 
+# consideranco um p-value 0.03052 < 0.05, a correlação em relação ao
+# estado civil é significativa, e o nível de significancia é de baixo representado 
+# por 0.01 ‘*’ 0.05
+
+
 
 ################################################################################
 # p) É possível afirmar que a experiência do indivíduo afeta significativamente 
 # no seu salário? A que nível de significância?
 ################################################################################
 
+# consideranco um p-value 2e-16 < 0.05, a correlação em relação a 
+# experiência é significativa, e o nível de significancia é de Alto representado 
+# por 0 ‘***’ 0.001
+
+
+
 ################################################################################
 #q) É possível afirmar que o sexo do indivíduo afeta significativamente no seu 
 # salário? A que nível de significância?
 ################################################################################
+
+# consideranco um p-value 2e-16 < 0.05, a correlação em relação ao sexo é 
+# significativa, e o nível de significancia é de Alto representado 
+# por 0 ‘***’ 0.001
+
 
 ################################################################################
 # r) Considere o modelo de modo geral, principalmente os sinais de cada um dos 
 # coeficientes do modelo de regressão, os resultados fazem sentido 
 # conceitualmente para você? Justifique.
 ################################################################################
-
+# Conclusão: os campos mais influência na média salárial são sexo, experiência e instrução.
+# estas variáveis foram as que tiveram maior significancia no calculo de regressão.
+# Variáveis como cor e estado civil possuem um impacto menor na média salarial.
