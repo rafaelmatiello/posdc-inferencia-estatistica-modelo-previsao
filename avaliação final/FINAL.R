@@ -22,8 +22,8 @@ library(normtest)
 # a) O Salário médio dos homens se difere do salário médio das mulheres?
 # (i) A hipótese nula e a alternativa a ser testada; 
 # R: 
-#  H0 o média salárial dos homens é igual o das mulhers
-#  H1 o média salárial dos homens não é igual o das mulhers
+#  H0 o média salarial dos homens é igual ao das mulheres
+#  H1 o média salarial dos homens não é igual ao das mulheres
 
 # (ii) Destaque o teste que será realizado; 
 # R:
@@ -39,7 +39,7 @@ library(normtest)
 
 dados <- read.csv("Dados.csv", header=T, sep=";", dec = ",")
 
-# Estatítica descritiva
+# Estatística descritiva
 
 summary(dados$salario) #Geral
 summary(dados$salario[dados$sexo == 0]) #home
@@ -123,8 +123,8 @@ basicStats(dados$salario[dados$sexo == 1]) #mulher
 
 
 #  Teste shapiro de normalidade, para verificar a normalidade dos dados, considerando:
-#  H0 - amostra esta dentro da normalidade
-#  H1 - amostra nãoesta dentro da normalidade  
+#  H0 - amostra está dentro da normalidade
+#  H1 - amostra não está dentro da normalidade  
 
 
 shapiro.test(dados$salario[dados$sexo == 0]) #home
@@ -145,14 +145,14 @@ shapiro.test(dados$salario[dados$sexo == 1]) #mulher
 # W = 0.79203, p-value < 2.2e-16
 
 # Conclusão: 
-# como para homes o P-value= 2.2e-16 < 0.05, Rejeitamos a normalidade para homens.
-# como para mulheres o P-value= 2.2e-16 < 0.05, Rejeitamos a normalidade para mulheres.
+# como para homes o P-value= 2.2e-16 < 0.05, rejeitamos a normalidade para homens.
+# como para mulheres o P-value= 2.2e-16 < 0.05, rejeitamos a normalidade para mulheres.
 
 
 
-# Teste de Levene, para verificar a igualdade das variáncias. Hipoteses:
-# h0, as variancias são igual
-# h1, as variancias são diferentes
+# Teste de Levene, para verificar a igualdade das variâncias. Hipóteses:
+# h0, as variâncias são iguais
+# h1, as variâncias são diferentes
 
 leveneTest(dados$salario, dados$sexo)
 
@@ -169,7 +169,7 @@ leveneTest(dados$salario, dados$sexo)
 
 
 
-# teste t amostra idependentes
+# teste t amostra independentes
 # H0 -> as médias são iguais
 # H1 -> as médias são diferentes
 
@@ -188,7 +188,7 @@ t.test(dados$salario ~ dados$sexo, var.equals=T)
 #   mean in group 0 mean in group 1 
 # 14.11889        10.59367 
 
-# Considerando o p-value 4.784e-16 < 0.05, logo rejeitamos HO, a media salarial dos homens é diferente das mulheres
+# Considerando o p-value 4.784e-16 < 0.05, logo rejeitamos HO, a média salarial dos homens é diferente das mulheres
 # A média do salarial dos homens é de 14.11889 é maior que o das mulheres que é 10.59367
 
 
@@ -207,7 +207,7 @@ wilcox.test(dados$salario~dados$sexo)
 # alternative hypothesis: true location shift is not equal to 0
 
 
-# Considerando o p-value 2.2e-16 < 0.05, logo rejeitamos HO, a media salarial dos homens é diferente das mulheres
+# Considerando o p-value 2.2e-16 < 0.05, logo rejeitamos HO, a média salarial dos homens é diferente das mulheres
 
 #############################################################
 # b) O Salário médio das pessoas não brancas se difere das pessoas brancas?
@@ -215,7 +215,7 @@ wilcox.test(dados$salario~dados$sexo)
 
 
 
-# Estatítica descritiva
+# Estatística descritiva
 
 summary(dados$salario) #Geral
 summary(dados$salario[dados$cor == 0]) #branca
@@ -300,8 +300,8 @@ basicStats(dados$salario[dados$cor == 1]) #não-branca
 
 
 #  Teste shapiro de normalidade, para verificar a normalidade dos dados, considerando:
-#  H0 - amostra esta dentro da normalidade
-#  H1 - amostra nãoesta dentro da normalidade  
+#  H0 - amostra está dentro da normalidade
+#  H1 - amostra não está dentro da normalidade  
 
 shapiro.test(dados$salario[dados$cor == 0]) 
 shapiro.test(dados$salario[dados$cor == 1]) 
@@ -321,14 +321,14 @@ shapiro.test(dados$salario[dados$cor == 1])
 # W = 0.85342, p-value = 8.177e-13
 
 # Conclusão: 
-# como para homes o P-value= 2.2e-16 < 0.05, Rejeitamos a normalidade para branca
-# como para mulheres o P-value= 8.177e-13 < 0.05, Rejeitamos a normalidade para não-branca
+# como para homes o P-value= 2.2e-16 < 0.05, rejeitamos a normalidade para branca
+# como para mulheres o P-value= 8.177e-13 < 0.05, rejeitamos a normalidade para não-branca
 
 
 
-# Teste de Levene, para verificar a igualdade das variáncias. Hipoteses:
-# h0, as variancias são igual
-# h1, as variancias são diferentes
+# Teste de Levene, para verificar a igualdade das variâncias. Hipóteses:
+# h0, as variâncias são iguais
+# h1, as variâncias são diferentes
 
 leveneTest(dados$salario, dados$cor)
 
@@ -340,7 +340,7 @@ leveneTest(dados$salario, dados$cor)
 # ---
 # Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-# Conclusão: Como o p-value(Pr(>F)) 0.0004716 < 0.05, Rejeitamos H0, e consideramos H1
+# Conclusão: Como o p-value(Pr(>F)) 0.0004716 < 0.05, rejeitamos H0, e consideramos H1
 
 
 
@@ -364,8 +364,8 @@ t.test(dados$salario ~ dados$cor, var.equals=T)
 #   mean in group 0 mean in group 1 
 # 12.794423        9.990203 
 
-# Considerando o p-value 1.501e-08 < 0.05, logo rejeitamos HO, a media salarial dos Não-branca é diferente das brancas
-# A média do salarial dos branca é de 12.794423 é maior que o das não-branca que é 9.990203 
+# Considerando o p-value 1.501e-08 < 0.05, logo rejeitamos HO, a média salarial dos Não-branca é diferente das brancas
+# A média do salarial dos brancos é de 12.794423 é maior que o das não-branca que é 9.990203 
 
 
 
@@ -382,7 +382,7 @@ wilcox.test(dados$salario~dados$cor)
 # W = 131644, p-value = 5.492e-07
 # alternative hypothesis: true location shift is not equal to 0
 
-# Considerando o p-value 5.492e-07 < 0.05, logo rejeitamos HO, a media salarial dos Não-branca é diferente das brancas
+# Considerando o p-value 5.492e-07 < 0.05, logo rejeitamos HO, a média salarial dos Não-branca é diferente das brancas
 
 
 
@@ -392,7 +392,7 @@ wilcox.test(dados$salario~dados$cor)
 
 
 
-# Estatítica descritiva
+# Estatística descritiva
 
 summary(dados$salario) #Geral
 summary(dados$salario[dados$est_civil == 0]) #Solteira
@@ -478,8 +478,8 @@ basicStats(dados$salario[dados$est_civil == 1]) #Casada
 
 
 #  Teste shapiro de normalidade, para verificar a normalidade dos dados, considerando:
-#  H0 - amostra esta dentro da normalidade
-#  H1 - amostra nãoesta dentro da normalidade  
+#  H0 - amostra está dentro da normalidade
+#  H1 - amostra não está dentro da normalidade  
 
 shapiro.test(dados$salario[dados$est_civil == 0]) 
 shapiro.test(dados$salario[dados$est_civil == 1]) 
@@ -499,14 +499,14 @@ shapiro.test(dados$salario[dados$est_civil == 1])
 # W = 0.96152, p-value = 2.294e-05
 
 # Conclusão: 
-# como para homes o P-value= 2.2e-16 < 0.05, Rejeitamos a normalidade para solteiros
-# como para mulheres o P-value=2.294e-05 < 0.05, Rejeitamos a normalidade para casados
+# como para homes o P-value= 2.2e-16 < 0.05, rejeitamos a normalidade para solteiros
+# como para mulheres o P-value=2.294e-05 < 0.05, rejeitamos a normalidade para casados
 
 
 
-# Teste de Levene, para verificar a igualdade das variáncias. Hipoteses:
-# h0, as variancias são igual
-# h1, as variancias são diferentes
+# Teste de Levene, para verificar a igualdade das variâncias. Hipóteses:
+# h0, as variâncias são iguais
+# h1, as variâncias são diferentes
 
 leveneTest(dados$salario, dados$est_civil)
 
@@ -518,7 +518,7 @@ leveneTest(dados$salario, dados$est_civil)
 # ---
 # Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-# Conclusão: Como o p-value(Pr(>F)) 0.03557 < 0.05, Rejeitamos H0, e consideramos H1
+# Conclusão: Como o p-value(Pr(>F)) 0.03557 < 0.05, rejeitamos H0, e consideramos H1
 
 # teste t amostra independentes
 # H0 -> as médias são iguais
@@ -539,7 +539,7 @@ t.test(dados$salario ~ dados$est_civil, var.equals=T)
 #   mean in group 0 mean in group 1 
 # 12.01488        14.22171 
 
-# Considerando o p-value 6.184e-06 < 0.05, logo rejeitamos HO, a media salarial dos casados é diferente dos solteiros
+# Considerando o p-value 6.184e-06 < 0.05, logo rejeitamos HO, a média salarial dos casados é diferente dos solteiros
 # A média do salarial dos casados é de 14.22171 é maior que o dos solteiros que é 12.01488 
 
 
@@ -557,7 +557,7 @@ wilcox.test(dados$salario~dados$est_civil)
 # W = 77246, p-value = 4.229e-12
 # alternative hypothesis: true location shift is not equal to 0
 
-# Considerando o p-value 4.229e-12 < 0.05, logo rejeitamos HO, a media salarial dos casados é diferente dos solteiros
+# Considerando o p-value 4.229e-12 < 0.05, logo rejeitamos HO, a média salarial dos casados é diferente dos solteiros
 
 
 
@@ -666,8 +666,8 @@ abline(v=mean(dados$salario[dados$sexo_est_civil == 4]), col="orange")
 
 
 # teste de levene, 
-# h0 -> os grupos possuen a mesma variância entre si
-# h2 -> os grupos possuen variâncias distintas.
+# h0 -> os grupos possuem a mesma variância entre si
+# h2 -> os grupos possuem variâncias distintas.
 
 leveneTest(dados$salario, dados$sexo_est_civil)
 # > leveneTest(dados$salario, dados$sexo_est_civil)
@@ -680,7 +680,7 @@ leveneTest(dados$salario, dados$sexo_est_civil)
 
 #conclusão: como p-value (pr(>F)) = 6.892e-07 < 0.05 = alfa, rejeita e fica com H1
 
-# conclusão que os grupos possuen variáncias distintas entre si.
+# conclusão que os grupos possuem variâncias distintas entre si.
 
 
 
@@ -698,9 +698,9 @@ summary(ANOVA)
 # ---
 #   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-# residuais, variáção dentro dos grupos
+# residuais, variação dentro dos grupos
 
-# significancia 0 ‘***’ 0.001, então rejeita o H0 e assime H1
+# significância 0 ‘***’ 0.001, então rejeita o H0 e assime H1
 
 # Conclusão: com o p-value = 7.86e-11 < 0.05, então rejeita a H0 e aceita H1
 
@@ -712,7 +712,7 @@ summary(ANOVA)
 
 
 
-# Estatítica descritiva
+# Estatística descritiva
 
 summary(dados$experiencia) #Geral
 summary(dados$experiencia[dados$sexo == 0]) #home
@@ -795,8 +795,8 @@ basicStats(dados$experiencia[dados$sexo == 1]) #mulher
 
 
 #  Teste shapiro de normalidade, para verificar a normalidade dos dados, considerando:
-#  H0 - amostra esta dentro da normalidade
-#  H1 - amostra nãoesta dentro da normalidade  
+#  H0 - amostra está dentro da normalidade
+#  H1 - amostra não está dentro da normalidade  
 
 
 shapiro.test(dados$experiencia[dados$sexo == 0]) #home
@@ -817,14 +817,14 @@ shapiro.test(dados$experiencia[dados$sexo == 1]) #mulher
 # W = 0.96514, p-value = 3.313e-11
 
 # Conclusão: 
-# como para homes o P-value= 3.173e-10 < 0.05, Rejeitamos a normalidade para homens.
-# como para mulheres o P-value= 3.313e-11 < 0.05, Rejeitamos a normalidade para mulheres.
+# como para homes o P-value= 3.173e-10 < 0.05, rejeitamos a normalidade para homens.
+# como para mulheres o P-value= 3.313e-11 < 0.05, rejeitamos a normalidade para mulheres.
 
 
 
-# Teste de Levene, para verificar a igualdade das variáncias. Hipoteses:
-# h0, as variancias são igual
-# h1, as variancias são diferentes
+# Teste de Levene, para verificar a igualdade das variâncias. Hipóteses:
+# h0, as variâncias são iguais
+# h1, as variâncias são diferentes
 
 leveneTest(dados$experiencia, dados$sexo)
 
@@ -835,12 +835,12 @@ leveneTest(dados$experiencia, dados$sexo)
 #       1287  
 
 # Conclusão: Como o p-value(Pr(>F)) 0.514 > 0.05, Aceitamos H0, e rejeitamos H1,
-# Logo a variáncia em relação a experiência de homens e mulheres é a mesma
+# Logo a variância em relação a experiência de homens e mulheres é a mesma
 
 
 
 
-# teste t amostra idependentes
+# teste t amostra independentes
 # H0 -> as médias são iguais
 # H1 -> as médias são diferentes
 
@@ -859,7 +859,7 @@ t.test(dados$experiencia ~ dados$sexo, var.equals=T)
 #   mean in group 0 mean in group 1 
 # 19.05247        18.52418 
 
-# Considerando o p-value 0.4165 < 0.05, logo rejeitamos HO, a media de experiência dos homens é diferente das mulheres
+# Considerando o p-value 0.4165 < 0.05, logo rejeitamos HO, a média de experiência dos homens é diferente das mulheres
 # A média de experiência dos homens é de 19.05247 é maior que o das mulheres que é 18.52418
 
 
@@ -878,7 +878,7 @@ wilcox.test(dados$experiencia~dados$sexo)
 # alternative hypothesis: true location shift is not equal to 0
 
 
-# Considerando o p-value 0.3127 < 0.05, logo rejeitamos HO, a media de experiência dos homens é diferente das mulheres
+# Considerando o p-value 0.3127 < 0.05, logo rejeitamos HO, a média de experiência dos homens é diferente das mulheres
 
 
 
@@ -887,7 +887,7 @@ wilcox.test(dados$experiencia~dados$sexo)
 # f) A idade média dos casados é diferente da idade média dos solteiros?
 ####################################################################
 
-# Estatítica descritiva
+# Estatística descritiva
 
 summary(dados$idade) #Geral
 summary(dados$idade[dados$est_civil == 0]) #solteira
@@ -970,8 +970,8 @@ basicStats(dados$idade[dados$est_civil == 1]) #casado
 
 
 #  Teste shapiro de normalidade, para verificar a normalidade dos dados, considerando:
-#  H0 - amostra esta dentro da normalidade
-#  H1 - amostra nãoesta dentro da normalidade  
+#  H0 - amostra está dentro da normalidade
+#  H1 - amostra não está dentro da normalidade  
 
 
 shapiro.test(dados$idade[dados$est_civil == 0]) #solteira
@@ -994,14 +994,14 @@ shapiro.test(dados$idade[dados$est_civil == 1]) #casado
 # W = 0.98779, p-value = 0.07607
 
 # Conclusão: 
-# como para solteira o P-value= 8.32e-14 < 0.05, Rejeitamos a normalidade para solteiros.
+# como para solteira o P-value= 8.32e-14 < 0.05, rejeitamos a normalidade para solteiros.
 # como para mulheres o P-value= 0.07607 > 0.05, Não rejeitamos a normalidade para casados
 
 
 
-# Teste de Levene, para verificar a igualdade das variáncias. Hipoteses:
-# h0, as variancias são igual
-# h1, as variancias são diferentes
+# Teste de Levene, para verificar a igualdade das variâncias. Hipóteses:
+# h0, as variâncias são iguais
+# h1, as variâncias são diferentes
 
 leveneTest(dados$idade, dados$est_civil)
 
@@ -1012,12 +1012,12 @@ leveneTest(dados$idade, dados$est_civil)
 #       1287 
 
 # Conclusão: Como o p-value(Pr(>F)) 0.17 > 0.05, Aceitamos H0, e rejeitamos H1,
-# Logo a variáncia em relação a idade dos casados e solteiros é a mesma
+# Logo a variância em relação a idade dos casados e solteiros é a mesma
 
 
 
 
-# teste t amostra idependentes
+# teste t amostra independentes
 # H0 -> as médias são iguais
 # H1 -> as médias são diferentes
 
@@ -1036,7 +1036,7 @@ t.test(dados$idade ~ dados$est_civil, var.equals=T)
 #   mean in group 0 mean in group 1 
 # 37.14760        42.09756 
 
-# Considerando o p-value 7.235e-09 < 0.05, logo rejeitamos HO, a media de idade dos casados é diferente dos solteiros.
+# Considerando o p-value 7.235e-09 < 0.05, logo rejeitamos HO, a média de idade dos casados é diferente dos solteiros.
 # A média de idade dos casados é de 42.09756  é maior que o dos solteiros que é 37.14760.
 
 
@@ -1055,7 +1055,7 @@ wilcox.test(dados$idade~dados$est_civil)
 # alternative hypothesis: true location shift is not equal to 0
 
 
-# Considerando o p-value 8.259e-09 < 0.05, logo rejeitamos HO, a media de idade dos casados é diferente dos solteiros.
+# Considerando o p-value 8.259e-09 < 0.05, logo rejeitamos HO, a média de idade dos casados é diferente dos solteiros.
 
 
 
@@ -1092,7 +1092,7 @@ cor.test(dados$salario, dados$experiencia, method = "pearson")
 #       cor 
 # 0.1731733
 
-# conclusão: o coeficiênte de correlação foi de 0.1731733 (fraca) com p-value 3.882e-10 < 0.05 = Alfa, rejeitamos h0.
+# conclusão: o coeficiente de correlação foi de 0.1731733 (fraca) com p-value 3.882e-10 < 0.05 = Alfa, rejeitamos h0.
 #Logo, a associação fraca entre o salario X experiencia
 
 
@@ -1122,7 +1122,7 @@ cor.test(dados$salario, dados$instrucao, method = "pearson")
 # 0.456518 
 
 
-# conclusão: o coeficiênte de correlação foi de 0.456518 (moderado) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
+# conclusão: o coeficiente de correlação foi de 0.456518 (moderado) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
 #Logo, a associação moderada entre o salario X instrução
 
 
@@ -1150,7 +1150,7 @@ cor.test(dados$salario, dados$idade, method = "pearson")
 # 0.2874694 
 
 
-# conclusão: o coeficiênte de correlação foi de 0.2874694 (fraca) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
+# conclusão: o coeficiente de correlação foi de 0.2874694 (fraca) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
 #Logo, a associação fraca entre o salario X idade
 
 
@@ -1167,7 +1167,7 @@ cor.test(dados$salario, dados$idade,  method = "spearman")
 #       rho 
 # 0.3409942 
 
-# conclusão: o coeficiênte de correlação foi de 0.3409942 (fraca) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
+# conclusão: o coeficiente de correlação foi de 0.3409942 (fraca) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
 #Logo, a associação fraca entre o salario X idade
 
 
@@ -1185,7 +1185,7 @@ cor.test(dados$salario, dados$idade, method = "kendall")
 #       tau 
 # 0.2393206 
 
-# conclusão: o coeficiênte de correlação foi de 0.2393206  (fraca) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
+# conclusão: o coeficiente de correlação foi de 0.2393206  (fraca) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
 #Logo, a associação fraca entre o salario X idade
 
 ###############################################################################
@@ -1209,7 +1209,7 @@ cor.test(dados$experiencia, dados$idade, method = "pearson")
 # 0.970575 
 
 
-# conclusão: o coeficiênte de correlação foi de 0.970575 (forte) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
+# conclusão: o coeficiente de correlação foi de 0.970575 (forte) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
 #Logo, a associação forte entre o experiencia X idade
 
 
@@ -1225,7 +1225,7 @@ cor.test(dados$experiencia, dados$idade,  method = "spearman")
 #      rho 
 # 0.971742 
 
-# conclusão: o coeficiênte de correlação foi de 0.971742 (Forte) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
+# conclusão: o coeficiente de correlação foi de 0.971742 (Forte) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
 #Logo, a associação fraca entre o experiencia X idade
 
 
@@ -1243,7 +1243,7 @@ cor.test(dados$experiencia, dados$idade, method = "kendall")
 #       tau 
 # 0.8823579 
 
-# conclusão: o coeficiênte de correlação foi de 0.8823579  (Forte) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
+# conclusão: o coeficiente de correlação foi de 0.8823579  (Forte) com p-value 2.2e-16 < 0.05 = Alfa, rejeitamos h0.
 #Logo, a associação fraca entre o experiencia X idade
 
 
@@ -1321,7 +1321,7 @@ anova(salario_mod)
 #   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 # > 
 
-#A relação entre a várias é significatica, exceto com idade
+#A relação entre a várias é significativa, exceto com idade
 
 
 
@@ -1329,7 +1329,7 @@ anova(salario_mod)
 # (dicotômicas), qual deveria ser a interpretação dada destes coeficientes 
 # sobre o salário?
 ################################################################################
-# R: Como são variáveis dicotônicas, deveram ser separadas em dias variaveis com 
+# R: Como são variáveis dicotômicas, deveram ser separadas em dias variáveis com 
 # valores 0 e 1, para serem consideradas, caso contrário vai considera, que uma opção
 # vale o dobro da outra opção.
 
@@ -1344,7 +1344,7 @@ anova(salario_mod)
 ################################################################################
 # m) De modelo geral, o modelo foi significativo?
 ################################################################################
-# h0 Nâo existe uma significancia
+# h0 Não existe uma significancia
 # h1 Existe uma significancia
 
 # R: Como o p-value = 2.2e-16 (0.0000) é menor que 0.05 = alfa, rejeitamos H0, modelo não significativo.
@@ -1366,8 +1366,8 @@ anova(salario_mod)
 # maior a probabilidade de existir relacionamento entre as variáveis.
 
 
-# consideranco um p-value 2e-16 < 0.05, a correlação en relação ao grau de 
-# instrução é significativa, e o nível de significancia é de alto representado 
+# considerando um p-value 2e-16 < 0.05, a correlação en relação ao grau de 
+# instrução é significativa, e o nível de significância é de alto representado 
 # por 0 ‘***’ 0.001
 
 cor.test(dados$salario , dados$instrucao,method = "pearson")
@@ -1378,8 +1378,8 @@ cor.test(dados$salario , dados$instrucao,method = "pearson")
 # no seu salário? A que nível de significância?
 ################################################################################
 
-# consideranco um p-value 0.03052 < 0.05, a correlação em relação ao
-# estado civil é significativa, e o nível de significancia é de baixo representado 
+# considerando um p-value 0.03052 < 0.05, a correlação em relação ao
+# estado civil é significativa, e o nível de significância é de baixo representado 
 # por 0.01 ‘*’ 0.05
 
 
@@ -1389,8 +1389,8 @@ cor.test(dados$salario , dados$instrucao,method = "pearson")
 # no seu salário? A que nível de significância?
 ################################################################################
 
-# consideranco um p-value 2e-16 < 0.05, a correlação em relação a 
-# experiência é significativa, e o nível de significancia é de Alto representado 
+# considerando um p-value 2e-16 < 0.05, a correlação em relação a 
+# experiência é significativa, e o nível de significância é de Alto representado 
 # por 0 ‘***’ 0.001
 
 
@@ -1400,8 +1400,8 @@ cor.test(dados$salario , dados$instrucao,method = "pearson")
 # salário? A que nível de significância?
 ################################################################################
 
-# consideranco um p-value 2e-16 < 0.05, a correlação em relação ao sexo é 
-# significativa, e o nível de significancia é de Alto representado 
+# considerando um p-value 2e-16 < 0.05, a correlação em relação ao sexo é 
+# significativa, e o nível de significância é de Alto representado 
 # por 0 ‘***’ 0.001
 
 
@@ -1410,6 +1410,6 @@ cor.test(dados$salario , dados$instrucao,method = "pearson")
 # coeficientes do modelo de regressão, os resultados fazem sentido 
 # conceitualmente para você? Justifique.
 ################################################################################
-# Conclusão: os campos mais influência na média salárial são sexo, experiência e instrução.
-# estas variáveis foram as que tiveram maior significancia no calculo de regressão.
+# Conclusão: os campos mais influência na média salarial são sexo, experiência e instrução.
+# estas variáveis foram as que tiveram maior significância no cálculo de regressão.
 # Variáveis como cor e estado civil possuem um impacto menor na média salarial.
